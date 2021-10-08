@@ -72,29 +72,21 @@ export const Hr = styled.View`
   background-color: ${({ theme }) => theme.colors.b700};
 `;
 
-export const SignUpDiv = styled.View`
-  width: 80%;
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-export const SignUpBtn = styled.TouchableOpacity`
-  width: 100%;
+export const LoginBtn = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  height: 58px;
-  border-radius: 30px;
-  border: 2px solid ${({ theme }) => theme.colors.b700};
+  flex-direction: row;
 `;
 
-export const SignUpText = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 15px;
-  letter-spacing: 2px;
-  font-family: ${({ theme }) => theme.fonts.bold};
+export const LoginText = styled.Text`
+  font-size: 17px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.blue};
+  margin-bottom: 22px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
-export const SignUpLabel = styled.Text`
+export const LoginLabel = styled.Text`
   font-size: 17px;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.w100};
@@ -130,4 +122,11 @@ export const Passwordiv = styled.View`
 export const EyeImg = styled.Image`
   width: 20px;
   height: 15px;
+`;
+
+export const LoginDiv = styled.View`
+  width: 80%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;

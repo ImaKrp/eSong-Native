@@ -11,7 +11,7 @@ export const StyledView = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: 10%;
+  height: 80px;
   flex-direction: row;
   background-color: ${({ theme }) => theme.colors.black};
   align-items: center;
