@@ -1,5 +1,13 @@
 import styled from "styled-components/native";
 
+export const Form = styled.View`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 0;
+`;
+
 export const InputDiv = styled.View`
   width: 100%;
   align-items: flex-start;
@@ -11,14 +19,6 @@ export const GapDiv = styled.View`
   align-items: flex-start;
   justify-content: flex-start;
   margin-bottom: 25px;
-`;
-
-export const Form = styled.View`
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  padding: 25px 0;
 `;
 
 export const InputLabel = styled.Text`

@@ -1,6 +1,6 @@
 // import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { SignIn } from "./src/pages/SignIn";
+import { SignUp } from "./src/pages/SignUp";
 import { StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import {
@@ -11,6 +11,7 @@ import {
 import AppLoading from "expo-app-loading";
 import { ThemeProvider } from "styled-components";
 import theme from "./src/global/theme";
+import { Sign } from "./src/layout/Sign";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,7 +30,9 @@ export default function App() {
           barStyle="light-content"
           backgroundColor="transparent"
         />
-        <SignIn />
+        <Sign>
+          <SignUp />
+        </Sign>
       </ThemeProvider>
     </>
   );

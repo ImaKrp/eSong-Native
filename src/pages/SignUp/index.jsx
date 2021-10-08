@@ -20,7 +20,7 @@ import {
 import eyeImg from "../../../assets/icons/eye.png";
 import eyeSlashImg from "../../../assets/icons/eyeSlash.png";
 
-export const SignIn = () => {
+export const SignUp = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [password, setPassword] = useState("");
@@ -54,7 +54,20 @@ export const SignIn = () => {
       </GapDiv>
       <GapDiv>
         <InputDiv>
-          <InputLabel>Senha</InputLabel>
+          <InputLabel>Endereço de e-mail</InputLabel>
+          <Input
+            placeholder="Insira seu endereço de e-mail."
+            value={email}
+            onChangeText={handleEmailChange}
+            placeholderTextColor="#797979"
+            isOnError={emailError}
+          />
+          {emailError !== "" && <ErrorLabel>{emailError}</ErrorLabel>}
+        </InputDiv>
+      </GapDiv>
+      <GapDiv>
+        <InputDiv>
+          <InputLabel>Senhaia</InputLabel>
           <Passwordiv>
             <Input
               placeholder="Insira sua senha."
@@ -71,8 +84,40 @@ export const SignIn = () => {
         </InputDiv>
         {passwordError !== "" && <ErrorLabel>{passwordError}</ErrorLabel>}
       </GapDiv>
+      <GapDiv>
+        <InputDiv>
+          <InputLabel>Senhaia</InputLabel>
+          <Passwordiv>
+            <Input
+              placeholder="Insira sua senha."
+              value={password}
+              secureTextEntry={visibility ? false : true}
+              onChangeText={handlePasswordChange}
+              placeholderTextColor="#797979"
+              isOnError={passwordError}
+            />
+            <Eye onPress={() => setVisibility(!visibility)} activeOpacity={0.7}>
+              <EyeImg source={visibility ? eyeImg : eyeSlashImg} />
+            </Eye>
+          </Passwordiv>
+        </InputDiv>
+        {passwordError !== "" && <ErrorLabel>{passwordError}</ErrorLabel>}
+      </GapDiv>
+      <GapDiv>
+        <InputDiv>
+          <InputLabel>Endereço de e-mail</InputLabel>
+          <Input
+            placeholder="Insira seu endereço de e-mail."
+            value={email}
+            onChangeText={handleEmailChange}
+            placeholderTextColor="#797979"
+            isOnError={emailError}
+          />
+          {emailError !== "" && <ErrorLabel>{emailError}</ErrorLabel>}
+        </InputDiv>
+      </GapDiv>
       <SubmitButton activeOpacity={0.7}>
-        <SubmitText>Entrar</SubmitText>
+        <SubmitText>INSCREVER-SE</SubmitText>
       </SubmitButton>
       <Hr />
       <SignUpDiv>
