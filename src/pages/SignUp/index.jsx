@@ -42,6 +42,7 @@ export const SignUp = () => {
   const handleEmailChange = (value) => {
     setEmail(value);
     setEmailError(value ? "" : "⨉ Você deve inserir seu e-mail.");
+    if(!verifyEmail) return
     setVerifyEmailError(
       value
         ? value === verifyEmail
@@ -76,6 +77,7 @@ export const SignUp = () => {
   const handlePasswordChange = (value) => {
     setPassword(value);
     setPasswordError(value ? "" : "⨉ Você precisa inserir uma senha.");
+    if(!verifyPassword) return
     setVerifyPasswordError(
       value
         ? value === verifyPassword
