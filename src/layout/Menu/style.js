@@ -20,6 +20,8 @@ export const Header = styled.View`
   padding-top: 20px;
 `;
 
+export const Container = styled.View``;
+
 export const ScrollPage = styled.ScrollView`
   height: 100%;
   width: 100%;
@@ -37,6 +39,15 @@ export const HomeButton = styled.TouchableOpacity`
 export const HomeImg = styled.Image`
   width: 20px;
   height: 20px;
+`;
+
+export const DisableModal = styled.TouchableOpacity`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
 `;
 
 export const CollapseButton = styled.TouchableOpacity`
@@ -67,4 +78,30 @@ export const Arrow = styled.Image`
   height: 8px;
   margin-right: 6px;
   transform: rotate(${({ active }) => (active === true ? `270deg` : "90deg")});
+`;
+
+export const Modal = styled.View`
+  padding: 4px;
+  border-radius: 4px;
+  position: absolute;
+  top: 75px;
+  right: 20px;
+  z-index: 5;
+  width: 200px;
+  background-color: ${({ theme }) => theme.colors.b600};
+`;
+
+export const RedirectBtn = styled.TouchableOpacity`
+  padding: 4px;
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+`;
+
+export const RedirectText = styled.Text`
+  font-size: 15px;
+  margin-left: 6px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.white};
 `;

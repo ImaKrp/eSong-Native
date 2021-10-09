@@ -15,10 +15,11 @@ import {
   Passwordiv,
   Eye,
   EyeImg,
-  Form
+  Form,
 } from "./style";
 import eyeImg from "../../../../assets/icons/eye.png";
 import eyeSlashImg from "../../../../assets/icons/eyeSlash.png";
+import User from "../../../db/User";
 
 export const SignIn = () => {
   const [emailError, setEmailError] = useState("");
@@ -36,6 +37,16 @@ export const SignIn = () => {
     setPassword(value);
     setPasswordError(value ? "" : "⨉ Por favor, insira sua senha.");
   };
+
+  const printCar = (car) => {
+    console.log(`id:${car.id}, brand:${car.email}, model:${car.pass}, hp:${car.name}`)
+  }
+
+  User.addUser({ email: "a", pass: "a", name: "a" })
+    .then((id) => console.log("User created with id: " + id))
+    .catch((err) => console.log(err));
+
+  User.allUsers().then((user) => user.forEach((user) => printCar(user)));
 
   return (
     <Form>
