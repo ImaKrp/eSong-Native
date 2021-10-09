@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   InputDiv,
   GapDiv,
@@ -19,7 +19,7 @@ import {
 } from "./style";
 import eyeImg from "../../../../assets/icons/eye.png";
 import eyeSlashImg from "../../../../assets/icons/eyeSlash.png";
-import User from "../../../db/User";
+import {useSession} from '../../../hooks/useSession'
 
 export const SignIn = () => {
   const [emailError, setEmailError] = useState("");
@@ -27,6 +27,15 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [visibility, setVisibility] = useState(false);
+  const { CreateSession, fetchAccounts } = useSession();
+
+  const fullfilAccounts = useCallback(async () => {
+      await fetchAccounts();
+  }, [fetchAccounts]);
+
+  useEffect(() => {
+    fullfilAccounts();
+  }, [fullfilAccounts]);
 
   const handleEmailChange = (value) => {
     setEmail(value);
@@ -38,15 +47,27 @@ export const SignIn = () => {
     setPasswordError(value ? "" : "⨉ Por favor, insira sua senha.");
   };
 
-  const printCar = (car) => {
-    console.log(`id:${car.id}, brand:${car.email}, model:${car.pass}, hp:${car.name}`)
-  }
+  const handleSubmit = async () => {
+    let error = 0;
 
-  User.addUser({ email: "a", pass: "a", name: "a" })
-    .then((id) => console.log("User created with id: " + id))
-    .catch((err) => console.log(err));
+    if (!password) {
+      setPasswordError("⨉ Por favor, insira sua senha.");
+      error++;
+    }
 
-  User.allUsers().then((user) => user.forEach((user) => printCar(user)));
+    if (!email) {
+      setEmailError("⨉ Insira seu endereço de e-mail do eSong.");
+      error++;
+    }
+
+    if (error > 0) return;
+    const resp = await CreateSession(email, password);
+    
+    if (resp !== true) {
+      if (resp === "email") setEmailError("⨉ E-mail não Cadastrado.");
+      if (resp === "senha") setPasswordError("⨉ Senha incorreta.");
+    }
+  };
 
   return (
     <Form>
@@ -82,7 +103,7 @@ export const SignIn = () => {
         </InputDiv>
         {passwordError !== "" && <ErrorLabel>{passwordError}</ErrorLabel>}
       </GapDiv>
-      <SubmitButton activeOpacity={0.7}>
+      <SubmitButton activeOpacity={0.7} onPress={handleSubmit}>
         <SubmitText>Entrar</SubmitText>
       </SubmitButton>
       <Hr />

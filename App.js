@@ -1,6 +1,6 @@
 // import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { SignIn } from "./src/pages/Sign/SignIn";
+import { SignUp } from "./src/pages/Sign/SignUp";
 import { StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import {
@@ -12,7 +12,7 @@ import AppLoading from "expo-app-loading";
 import { ThemeProvider } from "styled-components";
 import theme from "./src/global/theme";
 import { Sign } from "./src/layout/Sign";
-// import { SessionProvider } from "./src/provider/Contexts/SessionContext.js";
+import { SessionProvider } from "./src/provider/Contexts/SessionContext.js";
 import { SongProvider } from "./src/provider/Contexts/SongContext.js";
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,7 +25,7 @@ export default function App() {
   }
   return (
     <>
-      {/* <SessionProvider> */}
+      <SessionProvider>
         <SongProvider>
           <ThemeProvider theme={theme}>
             <StatusBar
@@ -34,11 +34,11 @@ export default function App() {
               backgroundColor="transparent"
             />
             <Sign>
-              <SignIn />
+              <SignUp />
             </Sign>
           </ThemeProvider>
         </SongProvider>
-      {/* </SessionProvider> */}
+      </SessionProvider>
     </>
   );
 }

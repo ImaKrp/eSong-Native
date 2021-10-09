@@ -1,9 +1,5 @@
 import axios from "axios";
 
-export const userApi = axios.create({
-  baseURL: "http://localhost:8000",
-});
-
 export const songApi = axios.create({
   baseURL: "https://deezerdevs-deezer.p.rapidapi.com",
 

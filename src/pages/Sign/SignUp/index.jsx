@@ -19,6 +19,7 @@ import {
 } from "./style";
 import eyeImg from "../../../../assets/icons/eye.png";
 import eyeSlashImg from "../../../../assets/icons/eyeSlash.png";
+import {useSession} from '../../../hooks/useSession'
 
 export const SignUp = () => {
   const [emailError, setEmailError] = useState("");
@@ -33,6 +34,7 @@ export const SignUp = () => {
   const [nameError, setNameError] = useState("");
   const [visibility1, setVisibility1] = useState(false);
   const [visibility2, setVisibility2] = useState(false);
+  const { AddAccount } = useSession();
 
   const handleNameChange = (value) => {
     setName(value);
@@ -85,6 +87,46 @@ export const SignUp = () => {
           : "⨉ As senhas não correspondem."
         : "⨉ Você deve confirmar sua senha."
     );
+  };
+
+  const handleSubmit = async () => {
+    let error = 0;
+
+    if (verifyEmailError) error++;
+
+    if (verifyPasswordError) error++;
+
+    if (!name) {
+      setNameError("⨉ Insira um nome para seu perfil.");
+      error++;
+    }
+
+    if (!password) {
+      setPasswordError("⨉ Por favor, insira sua senha.");
+      error++;
+    }
+
+    if (!email) {
+      setEmailError("⨉ Insira seu endereço de e-mail do eSong.");
+      error++;
+    }
+
+    if (!verifyPassword) {
+      setEmailError("⨉ Você deve confirmar sua senha.");
+      error++;
+    }
+
+    if (!verifyEmail) {
+      setEmailError("⨉ Você deve confirmar seu e-mail.");
+      error++;
+    }
+
+    if (error > 0) return;
+
+    const resp = await AddAccount(email, password, name);
+    if (resp !== true) {
+      if (resp === "email") setEmailError("⨉ E-mail já cadastrado.");
+    }
   };
 
   return (
@@ -176,7 +218,7 @@ export const SignUp = () => {
           {nameError !== "" && <ErrorLabel>{nameError}</ErrorLabel>}
         </InputDiv>
       </GapDiv>
-      <SubmitButton activeOpacity={0.7}>
+      <SubmitButton activeOpacity={0.7} onPress={handleSubmit}>
         <SubmitText>INSCREVER-SE</SubmitText>
       </SubmitButton>
       <Hr />
