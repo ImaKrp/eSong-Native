@@ -17,8 +17,8 @@ import {
   EyeImg,
   Form
 } from "./style";
-import eyeImg from "../../../assets/icons/eye.png";
-import eyeSlashImg from "../../../assets/icons/eyeSlash.png";
+import eyeImg from "../../../../assets/icons/eye.png";
+import eyeSlashImg from "../../../../assets/icons/eyeSlash.png";
 
 export const SignIn = () => {
   const [emailError, setEmailError] = useState("");

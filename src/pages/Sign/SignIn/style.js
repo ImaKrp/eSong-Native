@@ -130,4 +130,5 @@ export const Passwordiv = styled.View`
 export const EyeImg = styled.Image`
   width: 20px;
   height: 15px;
+  
 `;

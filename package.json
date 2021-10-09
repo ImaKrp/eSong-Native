@@ -12,6 +12,7 @@
     "@react-navigation/native": "^6.0.4",
     "@types/styled-components": "^5.1.15",
     "@types/styled-components-react-native": "^5.1.1",
+    "axios": "^0.22.0",
     "expo": "~42.0.1",
     "expo-app-loading": "1.1.2",
     "expo-font": "~9.2.1",
