@@ -71,6 +71,7 @@ export const MiniUser = styled.Image`
   width: 20px;
   height: 20px;
   border-radius: 16px;
+  margin-left: 5px;
 `;
 
 export const Username = styled.Text`

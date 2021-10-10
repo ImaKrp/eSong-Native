@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyledView,
   Header,
@@ -31,6 +31,9 @@ export const Main = () => {
   function goToMain() {
     navigation.navigate("Main");
   }
+  function goToProfile() {
+    navigation.navigate("Profile");
+  }
 
   return (
     <StyledView>
@@ -49,7 +52,7 @@ export const Main = () => {
           }}
         >
           <RedirectBtn>
-            <RedirectText activeOpacity={0.7}>Perfil</RedirectText>
+            <RedirectText activeOpacity={0.7} onPress={goToProfile}>Perfil</RedirectText>
           </RedirectBtn>
           <RedirectBtn>
             <RedirectText activeOpacity={0.7} onPress={() => LogOut()}>

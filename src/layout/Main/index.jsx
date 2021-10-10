@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
 import { ScrollPage, Void, Artist} from "./style";
 import { Card } from "../../components/Card";
 import { useSong } from "../../hooks/useSong";

@@ -1,5 +1,9 @@
 import React, { useState, useCallback, createContext, useEffect } from "react";
-import { changeLocalData, getLocalData, deleteLocalData } from "../../storage/Storage";
+import {
+  changeLocalData,
+  getLocalData,
+  deleteLocalData,
+} from "../../storage/Storage";
 import User from "../../db/User";
 
 const initialState = [];
@@ -27,7 +31,7 @@ export function SessionProvider({ children }) {
   }, []);
 
   function LogOut() {
-    deleteLocalData({dataName: "@eSong:User"});
+    deleteLocalData({ dataName: "@eSong:User" });
     setSession();
     setLogged();
   }
@@ -72,10 +76,11 @@ export function SessionProvider({ children }) {
     return true;
   }
 
-  async function updateUser(name, pic, id) {
+  async function updateUser(email, pass, name, pic, id) {
     if (pic === "https://") pic = "";
 
     const Name = upperFirstLetter(name);
+
     const submit = {
       id: `${id}`,
       email: `${email}`,
@@ -84,15 +89,20 @@ export function SessionProvider({ children }) {
       pic: `${pic}`,
     };
 
-    if (email === "teste@gmail.com") {
-      setSession(submit);
-    } else {
-      setSession(submit);
+    const update = {
+      name: `${Name}`,
+      pic: `${pic}`,
+    };
 
-      await changeLocalData({ dataName: "@eSong:User", object: submit });
+    User.updateUser(id, update)
+      .then((updated) => console.log("User updated: " + updated))
+      .catch((err) => console.log(err));
 
-      return true;
-    }
+    setSession(submit);
+
+    await changeLocalData({ dataName: "@eSong:User", object: submit });
+
+    return true;
   }
 
   return (

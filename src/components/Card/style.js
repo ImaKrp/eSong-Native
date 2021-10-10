@@ -14,7 +14,7 @@ export const Wrapper = styled.View`
 export const PlayBtn = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
-  border-radius: 18px;
+  border-radius: 20px;
   background-color: ${({ theme }) => theme.colors.blue};
   align-items: center;
   justify-content: center;
