@@ -1,6 +1,5 @@
 // import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { SignUp } from "./src/pages/Sign/SignUp";
 import { StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import {
@@ -11,7 +10,7 @@ import {
 import AppLoading from "expo-app-loading";
 import { ThemeProvider } from "styled-components";
 import theme from "./src/global/theme";
-import { Sign } from "./src/layout/Sign";
+import { Routes } from "./src/routes";
 import { SessionProvider } from "./src/provider/Contexts/SessionContext.js";
 import { SongProvider } from "./src/provider/Contexts/SongContext.js";
 export default function App() {
@@ -33,9 +32,7 @@ export default function App() {
               barStyle="light-content"
               backgroundColor="transparent"
             />
-            <Sign>
-              <SignUp />
-            </Sign>
+            <Routes />
           </ThemeProvider>
         </SongProvider>
       </SessionProvider>

@@ -1,8 +1,8 @@
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
 
-export async function getLocalData(dataName) {
+export function getLocalData(dataName) {
   try {
-    const storedData = await AsyncStorage.getItem(dataName);
+    const storedData =  AsyncStorage.getItem(dataName);
     if (value !== null) {
       return JSON.parse(storedData);
     }
@@ -14,6 +14,13 @@ export async function changeLocalData({ dataName, object }) {
   try {
     const parsedObject = JSON.stringify(object);
     await AsyncStorage.setItem(dataName, parsedObject);
+  } catch (error) {
+  }
+}
+
+export async function deleteLocalData({ dataName }) {
+  try {
+    await AsyncStorage.removeItem(dataName);
   } catch (error) {
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, createContext, useEffect } from "react";
-import { changeLocalData, getLocalData } from "../../storage/Storage";
+import { changeLocalData, getLocalData, deleteLocalData } from "../../storage/Storage";
 import User from "../../db/User";
 
 const initialState = [];
@@ -15,27 +15,19 @@ export function SessionProvider({ children }) {
       pic: "https://64.media.tumblr.com/7031561507aa20b65087c7812ace806c/ea95d609d48498c5-e5/s2048x3072/e948e9677edaa3caed15be26dff8d21b11624546.jpg",
     },
   ]);
-  const [session, setSession] = useState(getSession());
+  const [session, setSession] = useState(getLocalData("@eSong:User"));
   const [logged, setLogged] = useState(session ? true : false);
-
-  async function getSession() {
-    const data = await getLocalData("@eSong:User");
-    if (data) {
-      return data;
-    }
-    return;
-  }
 
   function upperFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
 
   const fetchAccounts = useCallback(async () => {
-    User.allUsers().then(users => setAccounts(users));
+    User.allUsers().then((users) => setAccounts(users));
   }, []);
 
   function LogOut() {
-    AsyncStorage.removeItem("@eSong:User");
+    deleteLocalData({dataName: "@eSong:User"});
     setSession();
     setLogged();
   }
@@ -70,9 +62,9 @@ export function SessionProvider({ children }) {
       name: `${name}`,
     };
 
-    User.addUser( submit )
-    .then( id => console.log('User created with id: '+ id) )
-    .catch( err => console.log(err) )
+    User.addUser(submit)
+      .then((id) => console.log("User created with id: " + id))
+      .catch((err) => console.log(err));
 
     setSession(submit);
     await changeLocalData({ dataName: "@eSong:User", object: submit });
@@ -95,7 +87,6 @@ export function SessionProvider({ children }) {
     if (email === "teste@gmail.com") {
       setSession(submit);
     } else {
-
       setSession(submit);
 
       await changeLocalData({ dataName: "@eSong:User", object: submit });
