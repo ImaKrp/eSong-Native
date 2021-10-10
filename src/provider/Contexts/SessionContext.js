@@ -10,16 +10,8 @@ const initialState = [];
 export const sessionContext = createContext(initialState);
 
 export function SessionProvider({ children }) {
-  const [Accounts, setAccounts] = useState([
-    {
-      id: 1,
-      email: "teste@gmail.com",
-      pass: "123",
-      name: "Teste",
-      pic: "https://64.media.tumblr.com/7031561507aa20b65087c7812ace806c/ea95d609d48498c5-e5/s2048x3072/e948e9677edaa3caed15be26dff8d21b11624546.jpg",
-    },
-  ]);
-  const [session, setSession] = useState(getLocalData("@eSong:User"));
+  const [Accounts, setAccounts] = useState([]);
+  const [session, setSession] = useState();
   const [logged, setLogged] = useState(session ? true : false);
 
   function upperFirstLetter(string) {
@@ -31,7 +23,7 @@ export function SessionProvider({ children }) {
   }, []);
 
   function LogOut() {
-    deleteLocalData({ dataName: "@eSong:User" });
+    deleteLocalData("@eSong");
     setSession();
     setLogged();
   }
@@ -43,7 +35,7 @@ export function SessionProvider({ children }) {
 
     if (Login[0]) {
       setSession(Login[0]);
-      changeLocalData({ dataName: "@eSong:User", object: Login[0] });
+      await changeLocalData("@eSong", Login[0]);
       return true;
     }
 
@@ -71,7 +63,7 @@ export function SessionProvider({ children }) {
       .catch((err) => console.log(err));
 
     setSession(submit);
-    await changeLocalData({ dataName: "@eSong:User", object: submit });
+    await changeLocalData("@eSong", submit);
 
     return true;
   }
@@ -100,7 +92,7 @@ export function SessionProvider({ children }) {
 
     setSession(submit);
 
-    await changeLocalData({ dataName: "@eSong:User", object: submit });
+    await changeLocalData("@eSong", submit);
 
     return true;
   }
