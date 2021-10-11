@@ -98,6 +98,12 @@ export const SignUp = () => {
   const handleSubmit = async () => {
     let error = 0;
 
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(email) !== true) {
+      setEmailError("⨉ Insira um endereço de e-mail valido.");
+      error++;
+    }
+
     if (verifyEmailError) error++;
 
     if (verifyPasswordError) error++;
@@ -118,12 +124,12 @@ export const SignUp = () => {
     }
 
     if (!verifyPassword) {
-      setEmailError("⨉ Você deve confirmar sua senha.");
+      setVerifyPasswordError("⨉ Você deve confirmar sua senha.");
       error++;
     }
 
     if (!verifyEmail) {
-      setEmailError("⨉ Você deve confirmar seu e-mail.");
+      setVerifyEmailError("⨉ Você deve confirmar seu e-mail.");
       error++;
     }
 
@@ -149,6 +155,8 @@ export const SignUp = () => {
             <InputDiv>
               <InputLabel>Qual é o seu e-mail?</InputLabel>
               <Input
+                keyboardType="email-address"
+                autoComplete="email"
                 placeholder="Insira seu endereço de e-mail."
                 value={email}
                 onChangeText={handleEmailChange}

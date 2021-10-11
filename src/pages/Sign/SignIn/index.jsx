@@ -92,6 +92,8 @@ export const SignIn = () => {
             <InputDiv>
               <InputLabel>Endereço de e-mail</InputLabel>
               <Input
+                keyboardType="email-address"
+                autoComplete="email"
                 placeholder="Insira seu endereço de e-mail."
                 value={email}
                 onChangeText={handleEmailChange}
