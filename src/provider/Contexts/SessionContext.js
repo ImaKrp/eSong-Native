@@ -14,6 +14,15 @@ export function SessionProvider({ children }) {
   const [session, setSession] = useState();
   const [logged, setLogged] = useState(session ? true : false);
 
+  const wasThereSession = useCallback(async () => {
+    const previousSession = await getLocalData("@eSong");
+    setSession(previousSession);
+  }, []);
+
+  useEffect(() => {
+    wasThereSession();
+  }, []);
+
   function upperFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
@@ -22,8 +31,8 @@ export function SessionProvider({ children }) {
     User.allUsers().then((users) => setAccounts(users));
   }, []);
 
-  function LogOut() {
-    deleteLocalData("@eSong");
+  async function LogOut() {
+    await deleteLocalData("@eSong");
     setSession();
     setLogged();
   }
