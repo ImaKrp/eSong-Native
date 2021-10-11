@@ -16,7 +16,7 @@ import {
   InputDiv,
   InputLabel,
   Input,
-  ErrorLabel
+  ErrorLabel,
 } from "./style";
 import { Dimensions } from "react-native";
 import xImg from "../../../assets/icons/close.png";
@@ -39,7 +39,7 @@ export const Modal = (prop) => {
   const handlePictureChange = (value) => {
     setNewPicture(value);
     if (value === "" || value === "https://") {
-      setNewPictureError('');
+      setNewPictureError("");
       return;
     }
 
@@ -129,6 +129,7 @@ export const Modal = (prop) => {
                 onChangeText={handleNameChange}
                 placeholderTextColor="#797979"
                 isOnError={nameError}
+                autoCapitalize="none"
               />
               {nameError !== "" && <ErrorLabel>{nameError}</ErrorLabel>}
             </InputDiv>
@@ -136,13 +137,14 @@ export const Modal = (prop) => {
           <GapDiv>
             <InputDiv>
               <InputLabel>Imagem</InputLabel>
-                <Input
-                  placeholder="Adicionar uma url de imagem."
-                  value={newPicture}
-                  onChangeText={handlePictureChange}
-                  placeholderTextColor="#797979"
-                  isOnError={newPictureError}
-                />
+              <Input
+                placeholder="Adicionar uma url de imagem."
+                value={newPicture}
+                onChangeText={handlePictureChange}
+                placeholderTextColor="#797979"
+                isOnError={newPictureError}
+                autoCapitalize="none"
+              />
             </InputDiv>
             {newPictureError !== "" && (
               <ErrorLabel>{newPictureError}</ErrorLabel>

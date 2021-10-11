@@ -14,9 +14,7 @@ export async function changeLocalData(dataName, object) {
   try {
     const jsonValue = JSON.stringify(object);
     await AsyncStorage.setItem(dataName, jsonValue);
-    alert("success saving data")
   } catch (e) {
-    alert("error saving data")
   }
 }
 

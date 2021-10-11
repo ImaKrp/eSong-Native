@@ -98,6 +98,7 @@ export const SignIn = () => {
                 value={email}
                 onChangeText={handleEmailChange}
                 placeholderTextColor="#797979"
+                autoCapitalize="none"
                 isOnError={emailError}
               />
               {emailError !== "" && <ErrorLabel>{emailError}</ErrorLabel>}
@@ -114,6 +115,7 @@ export const SignIn = () => {
                   onChangeText={handlePasswordChange}
                   placeholderTextColor="#797979"
                   isOnError={passwordError}
+                  autoCapitalize="none"
                 />
                 <Eye
                   onPress={() => setVisibility(!visibility)}

@@ -162,6 +162,7 @@ export const SignUp = () => {
                 onChangeText={handleEmailChange}
                 placeholderTextColor="#797979"
                 isOnError={emailError}
+                autoCapitalize="none"
               />
               {emailError !== "" && <ErrorLabel>{emailError}</ErrorLabel>}
             </InputDiv>
@@ -175,6 +176,7 @@ export const SignUp = () => {
                 onChangeText={handleVerifyEmailChange}
                 placeholderTextColor="#797979"
                 isOnError={verifyEmailError}
+                autoCapitalize="none"
               />
               {verifyEmailError !== "" && (
                 <ErrorLabel>{verifyEmailError}</ErrorLabel>
@@ -192,6 +194,7 @@ export const SignUp = () => {
                   onChangeText={handlePasswordChange}
                   placeholderTextColor="#797979"
                   isOnError={passwordError}
+                  autoCapitalize="none"
                 />
                 <Eye
                   onPress={() => setVisibility1(!visibility1)}
@@ -214,6 +217,7 @@ export const SignUp = () => {
                   onChangeText={handleVerifyPasswordChange}
                   placeholderTextColor="#797979"
                   isOnError={verifyPasswordError}
+                  autoCapitalize="none"
                 />
                 <Eye
                   onPress={() => setVisibility2(!visibility2)}
@@ -236,6 +240,7 @@ export const SignUp = () => {
                 onChangeText={handleNameChange}
                 placeholderTextColor="#797979"
                 isOnError={nameError}
+                autoCapitalize="none"
               />
               {nameError !== "" && <ErrorLabel>{nameError}</ErrorLabel>}
             </InputDiv>

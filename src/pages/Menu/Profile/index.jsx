@@ -29,10 +29,11 @@ export const Profile = () => {
   const { session, LogOut } = useSession();
 
   function goToMain() {
+    setActive(false)
     navigation.navigate("Main");
   }
-
   function goToProfile() {
+    setActive(false)
     navigation.navigate("Profile");
   }
 

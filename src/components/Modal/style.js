@@ -14,7 +14,7 @@ export const Wrapper = styled.TouchableOpacity`
 
 export const ModalDiv = styled.View`
   position: absolute;
-  top: 18%;
+  bottom: 15%;
   padding: 14px;
   width: 80%;
   background-color: ${({ theme }) => theme.colors.b100};
