@@ -17,6 +17,7 @@ export const MainLayout = () => {
               <Card
                 key={index}
                 id={song?.id}
+                index={index}
                 name={song?.title_short}
                 image={song?.album.cover_medium}
                 artist={song?.artist.name}

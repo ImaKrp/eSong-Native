@@ -8,15 +8,23 @@ import {
   PlayBtn,
   PlayImg,
 } from "./style";
-
+import { useNavigation } from "@react-navigation/native";
 import play from "../../../assets/icons/play.png";
 
 export const Card = (props) => {
+  const navigation = useNavigation();
+
+  function goToPlayer() {
+    navigation.navigate("Player", {
+      id: props.index
+    });
+  }
+
   return (
     <Wrapper>
       <ImgDiv>
         <Img source={{ uri: props?.image }} />
-        <PlayBtn activeOpacity={0.7}>
+        <PlayBtn activeOpacity={0.7} onPress={goToPlayer}>
           <PlayImg source={play} />
         </PlayBtn>
       </ImgDiv>
