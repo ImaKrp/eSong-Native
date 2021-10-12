@@ -11,22 +11,27 @@ export function SongProvider({ children }) {
   const [loopState, setLoopState] = useState(0);
 
   const fetchSongs = useCallback(async () => {
+    console.log("a")
     const { data } = await songApi.get("/search", {
       params: { q: "Shawn Mendes" },
     });
     setSongs(data.data);
-  }, [songs]);
+  }, []);
 
   const fetchCGSongs = useCallback(async () => {
+    console.log("a")
     const { data } = await songApi.get("/search", {
       params: { q: "Chri$tian Gate$" },
     });
     setSongsCG(data.data);
-  }, [songs]);
+  }, []);
+
+  useEffect(() => {
+    fetchCGSongs();
+  }, []);
 
   useEffect(() => {
     fetchSongs();
-    fetchCGSongs();
   }, []);
 
   const handleLoopState = () => {
