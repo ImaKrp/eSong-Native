@@ -8,7 +8,6 @@ import {
   Image,
   Title,
   Artist,
-  Slider,
   Controllers,
   TogglePause,
   ChangeSong,
@@ -18,6 +17,7 @@ import { useSong } from "../../hooks/useSong";
 import { useNavigation } from "@react-navigation/native";
 import { Dimensions } from "react-native";
 import { Audio } from "expo-av";
+import Slider from "@react-native-community/slider";
 
 import playImg from "../../../assets/icons/play.png";
 import pauseImg from "../../../assets/icons/pause.png";
@@ -30,7 +30,7 @@ export const PlayerLayout = ({ songId, changed }) => {
   const ScreenHeight = Dimensions.get("window").height;
   const ScreenWidth = Dimensions.get("window").width;
   const [sound, setSound] = useState();
-  // const [percentage, setPercentage] = useState(0);
+  const [percentage, setPercentage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -49,7 +49,18 @@ export const PlayerLayout = ({ songId, changed }) => {
     setFinish(status.didJustFinish);
   };
 
+  useEffect(() => {
+    if (!currentTime) return;
+    if (!duration) return;
+    setPercentage(Math.round((currentTime / duration) * 100));
+  }, [currentTime, duration]);
+
   if (finish) goToNext();
+
+  async function goToMillis(value){
+    setPercentage(value)
+    await sound.setPositionAsync((duration / 100) * value)
+  }
 
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(
@@ -109,11 +120,16 @@ export const PlayerLayout = ({ songId, changed }) => {
           />
           <Title numberOfLines={2}>{song?.title}</Title>
           <Artist numberOfLines={1}>{song?.artist?.name}</Artist>
-          {/* <Slider
+          <Slider
+            style={{ width: "110%", height: 20 }}
+            value={Number(percentage)}
+            maximumValue={100}
+            minimumValue={0}
+            minimumTrackTintColor="#a4add3"
+            maximumTrackTintColor="#3c3c3c"
             step={0.01}
-            value={percentage}
-            onValueChange={onChange}
-          /> */}
+            onValueChange={goToMillis}
+          />
           <Controllers>
             <ChangeSong activeOpacity={0.7} onPress={goToPrevious}>
               <ControllersImgs source={previousImg} />

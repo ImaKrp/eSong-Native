@@ -65,10 +65,6 @@ export const Artist = styled.Text`
   margin-bottom: 16px;
 `;
 
-export const Slider = styled.Slider`
-  width: 110%;
-`;
-
 export const Controllers = styled.View`
   height: 100px;
   width: 100%;
