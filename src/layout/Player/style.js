@@ -49,6 +49,11 @@ export const Image = styled.Image`
   margin-bottom: 20px;
 `;
 
+export const NameCont = styled.View`
+  width: 100%;
+  height: 100px;
+`;
+
 export const Title = styled.Text`
   width: 100%;
   font-size: 22px;
@@ -95,4 +100,18 @@ export const ChangeSong = styled.TouchableOpacity`
 export const ControllersImgs = styled.Image`
   width: 50%;
   height: 50%;
+`;
+
+export const TimeInfo = styled.View`
+  width: 100%;
+  flex-direction: row;
+  padding: 0 10px;
+  justify-content: space-between;
+`;
+
+export const TimeText = styled.Text`
+  font-size: 12px;
+  font-family: ${({ theme }) => theme.fonts.light};
+  color: rgb(124, 124, 124);
+  margin-top: 5px;
 `;

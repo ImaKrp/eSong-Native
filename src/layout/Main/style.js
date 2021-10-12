@@ -4,6 +4,7 @@ export const ScrollPage = styled.ScrollView`
   padding-left: 20px;
   height: 245px;
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 export const Void = styled.View`
@@ -18,4 +19,3 @@ export const Artist = styled.Text`
   color: ${({ theme }) => theme.colors.white};
   font-family: ${({ theme }) => theme.fonts.bold};
 `;
-

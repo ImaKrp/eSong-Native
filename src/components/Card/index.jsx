@@ -16,7 +16,8 @@ export const Card = (props) => {
 
   function goToPlayer() {
     navigation.navigate("Player", {
-      id: props.index
+      id: props.index,
+      type: props.type
     });
   }
 

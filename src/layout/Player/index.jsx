@@ -12,6 +12,9 @@ import {
   TogglePause,
   ChangeSong,
   ControllersImgs,
+  NameCont,
+  TimeInfo,
+  TimeText,
 } from "./style";
 import { useSong } from "../../hooks/useSong";
 import { useNavigation } from "@react-navigation/native";
@@ -24,8 +27,8 @@ import pauseImg from "../../../assets/icons/pause.png";
 import nextImg from "../../../assets/icons/next.png";
 import previousImg from "../../../assets/icons/previous.png";
 
-export const PlayerLayout = ({ songId, changed }) => {
-  const { songs, loopState } = useSong();
+export const PlayerLayout = ({ songId, changed, type }) => {
+  const { songs, songsCG, loopState } = useSong();
   const navigation = useNavigation();
   const ScreenHeight = Dimensions.get("window").height;
   const ScreenWidth = Dimensions.get("window").width;
@@ -35,7 +38,7 @@ export const PlayerLayout = ({ songId, changed }) => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [finish, setFinish] = useState(false);
-  const song = songs[songId];
+  const song = type === "SM" ? songs[songId] : songsCG[songId];
 
   const PrevIndex = Number(songId) > 0 ? Number(songId) - 1 : 24;
   const NextIndex = Number(songId) < 24 ? Number(songId) + 1 : 0;
@@ -57,9 +60,9 @@ export const PlayerLayout = ({ songId, changed }) => {
 
   if (finish) goToNext();
 
-  async function goToMillis(value){
-    setPercentage(value)
-    await sound.setPositionAsync((duration / 100) * value)
+  async function goToMillis(value) {
+    setPercentage(value);
+    await sound.setPositionAsync((duration / 100) * value);
   }
 
   async function playSound() {
@@ -77,6 +80,7 @@ export const PlayerLayout = ({ songId, changed }) => {
     await sound.unloadAsync();
     navigation.navigate("Player", {
       id: NextIndex,
+      type: type,
     });
   }
 
@@ -118,18 +122,25 @@ export const PlayerLayout = ({ songId, changed }) => {
               uri: song?.album?.cover_big,
             }}
           />
-          <Title numberOfLines={2}>{song?.title}</Title>
-          <Artist numberOfLines={1}>{song?.artist?.name}</Artist>
+          <NameCont>
+            <Title numberOfLines={2}>{song?.title}</Title>
+            <Artist numberOfLines={1}>{song?.artist?.name}</Artist>
+          </NameCont>
           <Slider
-            style={{ width: "110%", height: 20 }}
+            style={{ width: "110%", height: 10 }}
             value={Number(percentage)}
             maximumValue={100}
             minimumValue={0}
             minimumTrackTintColor="#a4add3"
             maximumTrackTintColor="#3c3c3c"
+            thumbTintColor="#a6a6a6"
             step={0.01}
             onValueChange={goToMillis}
           />
+          <TimeInfo>
+            <TimeText>00:{Math.round(currentTime / 1000) >= 10 ? Math.round(currentTime / 1000) : `0${Math.round(currentTime / 1000)}`}</TimeText>
+            <TimeText>00:{Math.round(duration / 1000)}</TimeText>
+          </TimeInfo>
           <Controllers>
             <ChangeSong activeOpacity={0.7} onPress={goToPrevious}>
               <ControllersImgs source={previousImg} />

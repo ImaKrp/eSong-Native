@@ -28,7 +28,7 @@ export const Player = () => {
   const [changed, setChanged] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
-  const { id } = route.params;
+  const { id, type } = route.params;
   const { session, LogOut } = useSession();
 
   function goToMain() {
@@ -94,7 +94,7 @@ export const Player = () => {
           </CollapseButton>
         </Container>
       </Header>
-      <PlayerLayout songId={id} changed={changed}/>
+      <PlayerLayout songId={id} changed={changed} type={type}/>
     </StyledView>
   );
 };

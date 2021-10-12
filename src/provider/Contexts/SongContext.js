@@ -6,6 +6,7 @@ export const songContext = createContext(initialState);
 
 export function SongProvider({ children }) {
   const [songs, setSongs] = useState([]);
+  const [songsCG, setSongsCG] = useState([]);
   const [songVolume, setSongVolume] = useState(0.05);
   const [loopState, setLoopState] = useState(0);
 
@@ -16,8 +17,16 @@ export function SongProvider({ children }) {
     setSongs(data.data);
   }, [songs]);
 
+  const fetchCGSongs = useCallback(async () => {
+    const { data } = await songApi.get("/search", {
+      params: { q: "Chri$tian Gate$" },
+    });
+    setSongsCG(data.data);
+  }, [songs]);
+
   useEffect(() => {
     fetchSongs();
+    fetchCGSongs();
   }, []);
 
   const handleLoopState = () => {
@@ -33,6 +42,7 @@ export function SongProvider({ children }) {
       value={{
         fetchSongs,
         songs,
+        songsCG,
         songVolume,
         setSongVolume,
         handleLoopState,

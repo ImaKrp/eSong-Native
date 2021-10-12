@@ -4,7 +4,7 @@ import { Card } from "../../components/Card";
 import { useSong } from "../../hooks/useSong";
 
 export const MainLayout = () => {
-  const { songs } = useSong();
+  const { songs, songsCG } = useSong();
 
   return (
     <>
@@ -17,6 +17,26 @@ export const MainLayout = () => {
               <Card
                 key={index}
                 id={song?.id}
+                type={'SM'}
+                index={index}
+                name={song?.title_short}
+                image={song?.album.cover_medium}
+                artist={song?.artist.name}
+              />
+            );
+          })}
+        <Void />
+      </ScrollPage>
+      <Artist>Chri$tian Gate$</Artist>
+      <ScrollPage horizontal={true}>
+        {songsCG &&
+          songsCG.length > 0 &&
+          songsCG?.map((song, index) => {
+            return (
+              <Card
+                key={index}
+                id={song?.id}
+                type={'CG'}
                 index={index}
                 name={song?.title_short}
                 image={song?.album.cover_medium}

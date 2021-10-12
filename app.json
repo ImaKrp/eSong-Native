@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "e-song",
-    "slug": "e-song",
+    "name": "eSong",
+    "slug": "eSong",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
