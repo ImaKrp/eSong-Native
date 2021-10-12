@@ -171,6 +171,8 @@ export const SignUp = () => {
             <InputDiv>
               <InputLabel>Confirme seu e-mail</InputLabel>
               <Input
+                keyboardType="email-address"
+                autoComplete="email"
                 placeholder="Insira novamente seu endereço de e-mail."
                 value={verifyEmail}
                 onChangeText={handleVerifyEmailChange}

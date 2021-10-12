@@ -38,6 +38,7 @@ export const PlayerLayout = ({ songId, changed, type }) => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [finish, setFinish] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const song = type === "SM" ? songs[songId] : songsCG[songId];
 
   const PrevIndex = Number(songId) > 0 ? Number(songId) - 1 : 24;
@@ -50,6 +51,7 @@ export const PlayerLayout = ({ songId, changed, type }) => {
     setDuration(status.durationMillis);
     setCurrentTime(status.positionMillis);
     setFinish(status.didJustFinish);
+    setLoaded(status.isLoaded);
   };
 
   useEffect(() => {
@@ -77,6 +79,7 @@ export const PlayerLayout = ({ songId, changed, type }) => {
   }
 
   async function goToNext() {
+    if(!loaded) return
     await sound.unloadAsync();
     navigation.navigate("Player", {
       id: NextIndex,
@@ -85,9 +88,11 @@ export const PlayerLayout = ({ songId, changed, type }) => {
   }
 
   async function goToPrevious() {
+    if(!loaded) return
     await sound.unloadAsync();
     navigation.navigate("Player", {
       id: PrevIndex,
+      type: type,
     });
   }
 

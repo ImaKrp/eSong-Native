@@ -68,11 +68,17 @@ export function SessionProvider({ children }) {
     };
 
     User.addUser(submit)
-      .then((id) => console.log("User created with id: " + id))
+      .then(async(id) => {
+        const userData = {
+          id: `${id}`,
+          email: `${Email}`,
+          pass: `${Pass}`,
+          name: `${name}`,
+        };
+        setSession(userData);
+        await changeLocalData("@eSong", userData);
+      })
       .catch((err) => console.log(err));
-
-    setSession(submit);
-    await changeLocalData("@eSong", submit);
 
     return true;
   }
