@@ -29,14 +29,9 @@ export const Profile = () => {
   const { session, LogOut } = useSession();
 
   function goToMain() {
-    setActive(false)
+    setActive(false);
     navigation.navigate("Main");
   }
-  function goToProfile() {
-    setActive(false)
-    navigation.navigate("Profile");
-  }
-
 
   return (
     <StyledView>
@@ -54,9 +49,6 @@ export const Profile = () => {
             elevation: 9,
           }}
         >
-          <RedirectBtn>
-            <RedirectText activeOpacity={0.7} onPress={goToProfile}>Perfil</RedirectText>
-          </RedirectBtn>
           <RedirectBtn>
             <RedirectText activeOpacity={0.7} onPress={() => LogOut()}>
               Sair
@@ -81,16 +73,14 @@ export const Profile = () => {
                 }}
               />
             ) : (
-              <MiniUser
-                source={userImg}
-              />
+              <MiniUser source={userImg} />
             )}
             <Username>{session.name}</Username>
             <Arrow source={arrow} active={active} />
           </CollapseButton>
         </Container>
       </Header>
-      <ProfileLayout/>
+      <ProfileLayout />
     </StyledView>
   );
 };

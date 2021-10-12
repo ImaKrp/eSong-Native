@@ -16,7 +16,7 @@ import {
   RedirectBtn,
   RedirectText,
 } from "./style";
-import Home from "../../../../assets/icons/home.png";
+import Home from "../../../../assets/icons/homeActive.png";
 import arrow from "../../../../assets/icons/arrow.png";
 import userImg from "../../../../assets/icons/user.png";
 import { MainLayout } from "../../../layout/Main";

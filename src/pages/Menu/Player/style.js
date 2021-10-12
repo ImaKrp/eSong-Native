@@ -13,7 +13,7 @@ export const Header = styled.View`
   width: 100%;
   height: 80px;
   flex-direction: row;
-  background-color: transparent;
+  background-color: rgb(53, 53, 53);
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
@@ -47,7 +47,7 @@ export const DisableModal = styled.TouchableOpacity`
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 3;
 `;
 
 export const CollapseButton = styled.TouchableOpacity`

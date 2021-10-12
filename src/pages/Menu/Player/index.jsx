@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   StyledView,
   Header,
-  ScrollPage,
   HomeButton,
   HomeImg,
   CollapseButton,
@@ -19,24 +18,27 @@ import {
 import Home from "../../../../assets/icons/home.png";
 import arrow from "../../../../assets/icons/arrow.png";
 import userImg from "../../../../assets/icons/user.png";
-import { MainLayout } from "../../../layout/Main";
+import { PlayerLayout } from "../../../layout/Player";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import { useSession } from "../../../hooks/useSession";
 
 export const Player = () => {
   const [active, setActive] = useState(false);
+  const [changed, setChanged] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params;
   const { session, LogOut } = useSession();
 
   function goToMain() {
-    setActive(false)
+    setActive(false);
+    setChanged(true)
     navigation.navigate("Main");
   }
   function goToProfile() {
-    setActive(false)
+    setActive(false);
+    setChanged(true)
     navigation.navigate("Profile");
   }
 
@@ -73,7 +75,6 @@ export const Player = () => {
         <HomeButton activeOpacity={0.7} onPress={goToMain}>
           <HomeImg source={Home} />
         </HomeButton>
-        <Username>SongId: {JSON.stringify(id)}</Username>
         <Container>
           <CollapseButton
             onPress={() => setActive(!active)}
@@ -93,9 +94,7 @@ export const Player = () => {
           </CollapseButton>
         </Container>
       </Header>
-      {/* <ScrollPage>
-        <MainLayout />
-      </ScrollPage> */}
+      <PlayerLayout songId={id} changed={changed}/>
     </StyledView>
   );
 };

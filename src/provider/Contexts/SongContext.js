@@ -6,7 +6,6 @@ export const songContext = createContext(initialState);
 
 export function SongProvider({ children }) {
   const [songs, setSongs] = useState([]);
-  const [song, setSong] = useState({});
   const [songVolume, setSongVolume] = useState(0.05);
   const [loopState, setLoopState] = useState(0);
 
@@ -14,17 +13,12 @@ export function SongProvider({ children }) {
     const { data } = await songApi.get("/search", {
       params: { q: "Shawn Mendes" },
     });
-    setSongs(data.data.splice(4, 6));
+    setSongs(data.data);
   }, [songs]);
 
   useEffect(() => {
     fetchSongs();
   }, []);
-
-  const getSongByIndex = (i) => {
-    if (!i) return;
-    setSong(songs[i]);
-  };
 
   const handleLoopState = () => {
     if (loopState === 2) {
@@ -38,9 +32,7 @@ export function SongProvider({ children }) {
     <songContext.Provider
       value={{
         fetchSongs,
-        getSongByIndex,
         songs,
-        song,
         songVolume,
         setSongVolume,
         handleLoopState,
