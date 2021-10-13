@@ -11,7 +11,6 @@ export function SongProvider({ children }) {
   const [loopState, setLoopState] = useState(0);
 
   const fetchSongs = useCallback(async () => {
-    console.log("a")
     const { data } = await songApi.get("/search", {
       params: { q: "Shawn Mendes" },
     });
@@ -19,7 +18,6 @@ export function SongProvider({ children }) {
   }, []);
 
   const fetchCGSongs = useCallback(async () => {
-    console.log("a")
     const { data } = await songApi.get("/search", {
       params: { q: "Chri$tian Gate$" },
     });

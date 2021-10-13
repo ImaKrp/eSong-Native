@@ -79,7 +79,7 @@ export const PlayerLayout = ({ songId, changed, type }) => {
   }
 
   async function goToNext() {
-    if(!loaded) return
+    if (!loaded) return;
     await sound.unloadAsync();
     navigation.navigate("Player", {
       id: NextIndex,
@@ -88,7 +88,7 @@ export const PlayerLayout = ({ songId, changed, type }) => {
   }
 
   async function goToPrevious() {
-    if(!loaded) return
+    if (!loaded) return;
     await sound.unloadAsync();
     navigation.navigate("Player", {
       id: PrevIndex,
@@ -143,8 +143,22 @@ export const PlayerLayout = ({ songId, changed, type }) => {
             onValueChange={goToMillis}
           />
           <TimeInfo>
-            <TimeText>00:{Math.round(currentTime / 1000) >= 10 ? Math.round(currentTime / 1000) : `0${Math.round(currentTime / 1000)}`}</TimeText>
-            <TimeText>00:{Math.round(duration / 1000)}</TimeText>
+            {loaded ? (
+              <>
+                <TimeText>
+                  00:
+                  {Math.round(currentTime / 1000) >= 10
+                    ? Math.round(currentTime / 1000)
+                    : `0${Math.round(currentTime / 1000)}`}
+                </TimeText>
+                <TimeText>00:{Math.round(duration / 1000)}</TimeText>
+              </>
+            ) : (
+              <>
+                <TimeText>00:00</TimeText>
+                <TimeText>00:00</TimeText>
+              </>
+            )}
           </TimeInfo>
           <Controllers>
             <ChangeSong activeOpacity={0.7} onPress={goToPrevious}>
@@ -160,7 +174,7 @@ export const PlayerLayout = ({ songId, changed, type }) => {
         </Card>
       </Wrapper>
       <FullView>
-        <LighterGray color={"rgb(53, 53, 53)"}></LighterGray>
+        <LighterGray color={"rgb(64,64,64)"}></LighterGray>
         <Content></Content>
       </FullView>
     </>

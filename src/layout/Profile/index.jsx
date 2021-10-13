@@ -28,7 +28,7 @@ export const ProfileLayout = () => {
     <>
       {active === true && <Modal onClick={() => setActive(false)} />}
       <FullView>
-        <Wrapper color={"rgb(53, 53, 53)"}>
+        <Wrapper>
           <ImageDiv
             activeOpacity={0.7}
             style={{

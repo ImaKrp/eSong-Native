@@ -9,7 +9,7 @@ export const FullView = styled.ScrollView`
 export const Wrapper = styled.View`
   height: 250px;
   width: 100%;
-  background-color: ${({ color }) => (color ? color : "rgb(83, 83, 83)")};
+  background-color: rgb(64,64,64);
   flex-direction: row;
   align-items: center;
 `;

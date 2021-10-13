@@ -13,7 +13,7 @@ export const Header = styled.View`
   width: 100%;
   height: 80px;
   flex-direction: row;
-  background-color: rgb(53, 53, 53);
+  background-color: rgb(64,64,64);
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
