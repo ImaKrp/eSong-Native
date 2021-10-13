@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
-  StyledView,
-  Header,
+  HeaderWrapper,
   HomeButton,
   HomeImg,
   CollapseButton,
@@ -15,35 +14,29 @@ import {
   RedirectBtn,
   RedirectText,
 } from "./style";
-import Home from "../../../../assets/icons/home.png";
-import arrow from "../../../../assets/icons/arrow.png";
-import userImg from "../../../../assets/icons/user.png";
-import { PlayerLayout } from "../../../layout/Player";
+import Home from "../../../assets/icons/home.png";
+import HomeActive from "../../../assets/icons/homeActive.png";
+import arrow from "../../../assets/icons/arrow.png";
+import userImg from "../../../assets/icons/user.png";
 import { useNavigation } from "@react-navigation/native";
-import { useRoute } from "@react-navigation/native";
-import { useSession } from "../../../hooks/useSession";
+import { useSession } from "../../hooks/useSession";
 
-export const Player = () => {
+export const Header = (props) => {
   const [active, setActive] = useState(false);
-  const [changed, setChanged] = useState(false);
   const navigation = useNavigation();
-  const route = useRoute();
-  const { id, type } = route.params;
   const { session, LogOut } = useSession();
 
   function goToMain() {
     setActive(false);
-    setChanged(true)
     navigation.navigate("Main");
   }
   function goToProfile() {
     setActive(false);
-    setChanged(true)
     navigation.navigate("Profile");
   }
 
   return (
-    <StyledView>
+    <>
       {active === true && (
         <Modal
           style={{
@@ -58,11 +51,15 @@ export const Player = () => {
             elevation: 9,
           }}
         >
-          <RedirectBtn>
-            <RedirectText activeOpacity={0.7} onPress={goToProfile}>
-              Perfil
-            </RedirectText>
-          </RedirectBtn>
+          {props.profile !== true && (
+            <RedirectBtn>
+              <RedirectText activeOpacity={0.7} onPress={() =>
+              props.toProfile ? (props.toProfile(), setActive(false)) : goToProfile()
+            }>
+                Perfil
+              </RedirectText>
+            </RedirectBtn>
+          )}
           <RedirectBtn>
             <RedirectText activeOpacity={0.7} onPress={() => LogOut()}>
               Sair
@@ -71,10 +68,21 @@ export const Player = () => {
         </Modal>
       )}
       {active === true && <DisableModal onPress={() => setActive(!active)} />}
-      <Header>
-        <HomeButton activeOpacity={0.7} onPress={goToMain}>
-          <HomeImg source={Home} />
-        </HomeButton>
+      <HeaderWrapper background={props.background}>
+        {props.home !== true ? (
+          <HomeButton
+            activeOpacity={0.7}
+            onPress={() =>
+              props.toMain ? (props.toMain(), setActive(false)) : goToMain()
+            }
+          >
+            <HomeImg source={Home} />
+          </HomeButton>
+        ) : (
+          <HomeButton activeOpacity={0.7}>
+            <HomeImg source={HomeActive} />
+          </HomeButton>
+        )}
         <Container>
           <CollapseButton
             onPress={() => setActive(!active)}
@@ -93,8 +101,7 @@ export const Player = () => {
             <Arrow source={arrow} active={active} />
           </CollapseButton>
         </Container>
-      </Header>
-      <PlayerLayout songId={id} changed={changed} type={type}/>
-    </StyledView>
+      </HeaderWrapper>
+    </>
   );
 };

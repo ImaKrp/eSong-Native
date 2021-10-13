@@ -1,15 +1,18 @@
 import React from "react";
-import { ScrollPage, Void, Artist} from "./style";
+import { ScrollPage, Void, Artist } from "./style";
 import { Card } from "../../components/Card";
+import { LoadingCard } from "../../components/LoadingCard";
 import { useSong } from "../../hooks/useSong";
 
 export const MainLayout = () => {
   const { songs, songsCG } = useSong();
-
+  let cont = 0;
   return (
     <>
       <Artist>Shawn Mendes</Artist>
       <ScrollPage horizontal={true}>
+        {!songs.length > 0 &&
+          [...Array(25)].map((i) => <LoadingCard key={i ?? cont++} />)}
         {songs &&
           songs.length > 0 &&
           songs?.map((song, index) => {
@@ -17,7 +20,7 @@ export const MainLayout = () => {
               <Card
                 key={index}
                 id={song?.id}
-                type={'SM'}
+                type={"SM"}
                 index={index}
                 name={song?.title_short}
                 image={song?.album.cover_medium}
@@ -29,6 +32,8 @@ export const MainLayout = () => {
       </ScrollPage>
       <Artist>Chri$tian Gate$</Artist>
       <ScrollPage horizontal={true}>
+        {!songsCG.length > 0 &&
+          [...Array(25)].map((i) => <LoadingCard key={i ?? cont++} />)}
         {songsCG &&
           songsCG.length > 0 &&
           songsCG?.map((song, index) => {
@@ -36,7 +41,7 @@ export const MainLayout = () => {
               <Card
                 key={index}
                 id={song?.id}
-                type={'CG'}
+                type={"CG"}
                 index={index}
                 name={song?.title_short}
                 image={song?.album.cover_medium}

@@ -9,11 +9,11 @@ export const StyledView = styled.View`
   width: 100%;
 `;
 
-export const Header = styled.View`
+export const HeaderWrapper = styled.View`
   width: 100%;
   height: 80px;
   flex-direction: row;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ background, theme }) => (background ? theme.colors.black : "rgb(64,64,64)")};
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
@@ -25,7 +25,6 @@ export const Container = styled.View``;
 export const ScrollPage = styled.ScrollView`
   height: 100%;
   width: 100%;
-  flex: 1;
 `;
 
 export const HomeButton = styled.TouchableOpacity`

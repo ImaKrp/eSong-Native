@@ -138,7 +138,7 @@ export const PlayerLayout = ({ songId, changed, type }) => {
             minimumValue={0}
             minimumTrackTintColor="#a4add3"
             maximumTrackTintColor="#3c3c3c"
-            thumbTintColor="#a6a6a6"
+            thumbTintColor="#d0d0d0"
             step={0.01}
             onValueChange={goToMillis}
           />

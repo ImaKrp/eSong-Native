@@ -3,9 +3,9 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from "@react-navigation/stack";
-import { Main } from "../pages/Menu/Main";
-import { Profile } from "../pages/Menu/Profile";
-import { Player } from "../pages/Menu/Player";
+import { Main } from "../layout/Menu/Main";
+import { Profile } from "../layout/Menu/Profile";
+import { Player } from "../layout/Menu/Player";
 
 const { Navigator, Screen } = createStackNavigator();
 
