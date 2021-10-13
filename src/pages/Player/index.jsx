@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FullView,
   LighterGray,
@@ -27,7 +27,7 @@ import pauseImg from "../../../assets/icons/pause.png";
 import nextImg from "../../../assets/icons/next.png";
 import previousImg from "../../../assets/icons/previous.png";
 
-export const PlayerLayout = ({ songId, changed, type }) => {
+export const PlayerLayout = ({ songId, changed, type, hasLoaded }) => {
   const { songs, songsCG, loopState } = useSong();
   const navigation = useNavigation();
   const ScreenHeight = Dimensions.get("window").height;
@@ -44,7 +44,13 @@ export const PlayerLayout = ({ songId, changed, type }) => {
   const PrevIndex = Number(songId) > 0 ? Number(songId) - 1 : 24;
   const NextIndex = Number(songId) < 24 ? Number(songId) + 1 : 0;
 
-  if (changed) sound.unloadAsync();
+  useEffect(() => {
+    if (changed) sound.unloadAsync();
+  }, [changed]);
+
+  useEffect(() => {
+    if (loaded) hasLoaded();
+  }, [loaded]);
 
   const onPlaybackStatusUpdate = (status) => {
     setIsPlaying(status.isPlaying);
