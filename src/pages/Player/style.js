@@ -25,7 +25,7 @@ export const Wrapper = styled.View`
   position: absolute;
   top: 0;
   left: 0;
-  margin-top: 35%;
+  margin-top: 15%;
   width: ${({ width }) => (width ? `${width}px` : "100%")};
   height: 65%;
   z-index: 1;

@@ -18,10 +18,12 @@ import {
 } from "./style";
 import { useSong } from "../../hooks/useSong";
 import { useNavigation } from "@react-navigation/native";
-import { Dimensions } from "react-native";
+import { Dimensions, BackHandler } from "react-native";
 import { Audio } from "expo-av";
 import Slider from "@react-native-community/slider";
-
+import GestureRecognizer, {
+  swipeDirections,
+} from "react-native-swipe-gestures";
 import playImg from "../../../assets/icons/play.png";
 import pauseImg from "../../../assets/icons/pause.png";
 import nextImg from "../../../assets/icons/next.png";
@@ -59,6 +61,10 @@ export const PlayerLayout = ({ songId, changed, type, hasLoaded }) => {
     setFinish(status.didJustFinish);
     setLoaded(status.isLoaded);
   };
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => true);
+  }, []);
 
   useEffect(() => {
     if (!currentTime) return;
@@ -112,77 +118,96 @@ export const PlayerLayout = ({ songId, changed, type, hasLoaded }) => {
     setIsPlaying(!isPlaying);
   }
 
+  const config = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80,
+  };
+
   return (
     <>
-      <Wrapper height={ScreenHeight} width={ScreenWidth}>
-        <Card
-          style={{
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 4,
-            },
-            shadowOpacity: 0.32,
-            shadowRadius: 5.46,
+      <GestureRecognizer
+        onSwipeLeft={() => goToNext()}
+        onSwipeRight={() => goToPrevious()}
+        config={config}
+        style={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: "#232323",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Wrapper height={ScreenHeight} width={ScreenWidth}>
+          <Card
+            style={{
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 4,
+              },
+              shadowOpacity: 0.32,
+              shadowRadius: 5.46,
 
-            elevation: 9,
-          }}
-        >
-          <Image
-            source={{
-              uri: song?.album?.cover_big,
+              elevation: 9,
             }}
-          />
-          <NameCont>
-            <Title numberOfLines={2}>{song?.title}</Title>
-            <Artist numberOfLines={1}>{song?.artist?.name}</Artist>
-          </NameCont>
-          <Slider
-            style={{ width: "110%", height: 10 }}
-            value={Number(percentage)}
-            maximumValue={100}
-            minimumValue={0}
-            minimumTrackTintColor="#a4add3"
-            maximumTrackTintColor="#3c3c3c"
-            thumbTintColor="#d0d0d0"
-            step={0.01}
-            onValueChange={goToMillis}
-          />
-          <TimeInfo>
-            {loaded ? (
-              <>
-                <TimeText>
-                  00:
-                  {Math.round(currentTime / 1000) >= 10
-                    ? Math.round(currentTime / 1000)
-                    : `0${Math.round(currentTime / 1000)}`}
-                </TimeText>
-                <TimeText>00:{Math.round(duration / 1000)}</TimeText>
-              </>
-            ) : (
-              <>
-                <TimeText>00:00</TimeText>
-                <TimeText>00:00</TimeText>
-              </>
-            )}
-          </TimeInfo>
-          <Controllers>
-            <ChangeSong activeOpacity={0.7} onPress={goToPrevious}>
-              <ControllersImgs source={previousImg} />
-            </ChangeSong>
-            <TogglePause onPress={handleTogglePause} activeOpacity={0.7}>
-              <ControllersImgs source={isPlaying ? pauseImg : playImg} />
-            </TogglePause>
-            <ChangeSong activeOpacity={0.7} onPress={goToNext}>
-              <ControllersImgs source={nextImg} />
-            </ChangeSong>
-          </Controllers>
-        </Card>
-      </Wrapper>
-      <FullView>
-        <LighterGray color={"rgb(64,64,64)"}></LighterGray>
-        <Content></Content>
-      </FullView>
+          >
+            <Image
+              source={{
+                uri: song?.album?.cover_big,
+              }}
+            />
+            <NameCont>
+              <Title numberOfLines={2}>{song?.title}</Title>
+              <Artist numberOfLines={1}>{song?.artist?.name}</Artist>
+            </NameCont>
+            <Slider
+              style={{ width: "110%", height: 10 }}
+              value={Number(percentage)}
+              maximumValue={100}
+              minimumValue={0}
+              minimumTrackTintColor="#a4add3"
+              maximumTrackTintColor="#3c3c3c"
+              thumbTintColor="#d0d0d0"
+              step={0.01}
+              onValueChange={goToMillis}
+            />
+            <TimeInfo>
+              {loaded ? (
+                <>
+                  <TimeText>
+                    00:
+                    {Math.round(currentTime / 1000) >= 10
+                      ? Math.round(currentTime / 1000)
+                      : `0${Math.round(currentTime / 1000)}`}
+                  </TimeText>
+                  <TimeText>00:{Math.round(duration / 1000)}</TimeText>
+                </>
+              ) : (
+                <>
+                  <TimeText>00:00</TimeText>
+                  <TimeText>00:00</TimeText>
+                </>
+              )}
+            </TimeInfo>
+            <Controllers>
+              <ChangeSong activeOpacity={0.7} onPress={goToPrevious}>
+                <ControllersImgs source={previousImg} />
+              </ChangeSong>
+              <TogglePause onPress={handleTogglePause} activeOpacity={0.7}>
+                <ControllersImgs source={isPlaying ? pauseImg : playImg} />
+              </TogglePause>
+              <ChangeSong activeOpacity={0.7} onPress={goToNext}>
+                <ControllersImgs source={nextImg} />
+              </ChangeSong>
+            </Controllers>
+          </Card>
+        </Wrapper>
+        <FullView>
+          <LighterGray color="rgb(64,64,64)"></LighterGray>
+          <Content></Content>
+        </FullView>
+      </GestureRecognizer>
     </>
   );
 };
